@@ -12,7 +12,7 @@ public class EventService
      * Returns the single Event object with the specified ID.
      * @return
      */
-    public EventResult singleEvent()
+    public EventResult singleEvent(String authToken)
     {
         return null;
     }
@@ -22,7 +22,7 @@ public class EventService
      * user is determined from the provided auth token.
      * @return
      */
-    public MultipleEventResult multipleEvent()
+    public MultipleEventResult multipleEvent(String authToken)
     {
         return null;
     }

@@ -14,15 +14,15 @@ public class Person
     /**
      * Person's username
      */
-    private String username;
+    private String userName;
     /**
      * Person's firstname
      */
-    private String firstname;
+    private String firstName;
     /**
      * Person's lastname
      */
-    private String lastname;
+    private String lastName;
     /**
      * Person's gender
      */
@@ -40,6 +40,8 @@ public class Person
      */
     private String spouseID;
 
+
+
     public Person()
     {
 
@@ -48,17 +50,17 @@ public class Person
     /**
      * Parameterized constructor
      * @param personID
-     * @param username
-     * @param firstname
-     * @param lastname
+     * @param userName
+     * @param firstName
+     * @param lastName
      * @param gender
      */
-    public Person(String personID, String username, String firstname, String lastname, char gender)
+    public Person(String personID, String userName, String firstName, String lastName, char gender)
     {
         this.personID = personID;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.motherID = null;
         this.fatherID = null;
@@ -70,19 +72,19 @@ public class Person
         return personID;
     }
 
-    public String getUsername()
+    public String getUserName()
     {
-        return username;
+        return userName;
     }
 
-    public String getFirstname()
+    public String getFirstName()
     {
-        return firstname;
+        return firstName;
     }
 
-    public String getLastname()
+    public String getLastName()
     {
-        return lastname;
+        return lastName;
     }
 
     public char getGender()
@@ -122,6 +124,11 @@ public class Person
 
     public void setPersonID(String personID){this.personID = personID;}
 
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -130,9 +137,9 @@ public class Person
         Person person = (Person) o;
         return getGender() == person.getGender() &&
                 getPersonID().equals(person.getPersonID()) &&
-                getUsername().equals(person.getUsername()) &&
-                getFirstname().equals(person.getFirstname()) &&
-                getLastname().equals(person.getLastname()) &&
+                getUserName().equals(person.getUserName()) &&
+                getFirstName().equals(person.getFirstName()) &&
+                getLastName().equals(person.getLastName()) &&
                 Objects.equals(getFatherID(), person.getFatherID()) &&
                 Objects.equals(getMotherID(), person.getMotherID()) &&
                 Objects.equals(getSpouseID(), person.getSpouseID());
@@ -141,7 +148,7 @@ public class Person
     @Override
     public int hashCode()
     {
-        return Objects.hash(getPersonID(), getUsername(), getFirstname(), getLastname(), getGender(), getFatherID(), getMotherID(), getSpouseID());
+        return Objects.hash(getPersonID(), getUserName(), getFirstName(), getLastName(), getGender(), getFatherID(), getMotherID(), getSpouseID());
     }
 
     @Override
@@ -149,9 +156,9 @@ public class Person
     {
         return "Person{" +
                 "personID='" + personID + '\'' +
-                ", username='" + username + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", username='" + userName + '\'' +
+                ", firstname='" + firstName + '\'' +
+                ", lastname='" + lastName + '\'' +
                 ", gender=" + gender +
                 ", fatherID='" + fatherID + '\'' +
                 ", motherID='" + motherID + '\'' +

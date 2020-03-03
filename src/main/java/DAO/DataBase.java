@@ -1,9 +1,6 @@
 package DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * Opens closes and clears Database
@@ -57,16 +54,16 @@ public class DataBase
         }
         catch(SQLException e)
         {
-            System.out.println("Error closing connection");
+            System.out.println("Error closing connection" + e.toString());
         }
         return connect;
     }
 
     /**
      * Close connection
-     * @param commit
+     *
      */
-    public Connection getConnect(boolean commit) throws DataAccessException
+    public Connection getConnect() throws DataAccessException
     {
         if (connect == null)
         {
@@ -85,6 +82,24 @@ public class DataBase
     public void wipe()
     {
 
+    }
+
+    public boolean hasData(String ID, String table) throws DataAccessException
+    {
+        try(Statement stmt = connect.createStatement())
+        {
+            String command = "SELECT " + ID + " FROM " + table;
+            ResultSet res = stmt.executeQuery(command);
+            if(!res.next())
+            {
+                return false;
+            }
+        }
+        catch(SQLException e)
+        {
+            throw new DataAccessException(e.toString());
+        }
+        return true;
     }
 
 }

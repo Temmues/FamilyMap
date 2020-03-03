@@ -14,6 +14,8 @@ public class Result
      */
     private boolean success;
 
+    public Result() {}
+
     /**
      * Parameterized Constructor
      * @param message
@@ -33,5 +35,14 @@ public class Result
     public boolean isSuccess()
     {
         return success;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Result{" +
+                "message='" + message + '\'' +
+                ", success=" + success +
+                '}';
     }
 }

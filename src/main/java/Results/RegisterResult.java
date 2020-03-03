@@ -8,11 +8,11 @@ public class RegisterResult extends Result
     /**
      * authentication token
      */
-    private String token;
+    private String authToken;
     /**
      * Resulting username
      */
-    private String username;
+    private String userName;
     /**
      * Resulting person ID
      */
@@ -23,27 +23,27 @@ public class RegisterResult extends Result
     private boolean success;
 
     /**
-     * @param token auth token
-     * @param username
+     * @param authToken auth token
+     * @param userName
      * @param personID
      *
      */
-    public RegisterResult(String token, String username, String personID, boolean success, String errorMessage)
+    public RegisterResult(String authToken, String userName, String personID, boolean success, String errorMessage)
     {
         super(errorMessage,success);
-        this.token = token;
-        this.username = username;
+        this.authToken = authToken;
+        this.userName = userName;
         this.personID = personID;
     }
 
-    public String getToken()
+    public String getAuthToken()
     {
-        return token;
+        return authToken;
     }
 
-    public String getUsername()
+    public String getUserName()
     {
-        return username;
+        return userName;
     }
 
     public String getPersonID()

@@ -12,7 +12,7 @@ public class PersonResult extends Result
     /**
      * Person ID
      */
-    private String personId;
+    private String personID;
     /**
      * Person firstname
      */
@@ -43,7 +43,7 @@ public class PersonResult extends Result
      * @param message
      * @param success
      * @param associatedUsername
-     * @param personId
+     * @param personID
      * @param firstName
      * @param lastName
      * @param gender
@@ -51,11 +51,11 @@ public class PersonResult extends Result
      * @param motherID
      * @param spouseID
      */
-    public PersonResult(String message, boolean success, String associatedUsername, String personId, String firstName, String lastName, char gender, String fatherID, String motherID, String spouseID)
+    public PersonResult(String message, boolean success, String associatedUsername, String personID, String firstName, String lastName, char gender, String fatherID, String motherID, String spouseID)
     {
         super(message, success);
         this.associatedUsername = associatedUsername;
-        this.personId = personId;
+        this.personID = personID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -69,9 +69,9 @@ public class PersonResult extends Result
         return associatedUsername;
     }
 
-    public String getPersonId()
+    public String getPersonID()
     {
-        return personId;
+        return personID;
     }
 
     public String getFirstName()

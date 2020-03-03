@@ -9,7 +9,7 @@ public class MultipleEventResult
     /**
      * List of multiple events
      */
-    private Event[] eventList;
+    private Event[] data;
     /**
      * Result message
      */
@@ -17,12 +17,12 @@ public class MultipleEventResult
 
     /**
      * Parameterized Constructor
-     * @param eventList
+     * @param data
      * @param message
      */
-    public MultipleEventResult(Event[] eventList, String message)
+    public MultipleEventResult(Event[] data, String message)
     {
-        this.eventList = eventList;
+        this.data = data;
         this.message = message;
     }
 }

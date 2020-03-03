@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Objects;
+
 /**
  * Class for holding event data
  */
@@ -40,7 +42,9 @@ public class Event
     /**
      * Year when event takes place
      */
-    private int currentYear;
+    private int year;
+
+
 
     /**
      * Parameterized constructor
@@ -52,9 +56,9 @@ public class Event
      * @param country
      * @param city
      * @param eventType
-     * @param currentYear
+     * @param year
      */
-    public Event(String eventID, String username, String personID, double latitude, double longitude, String country, String city, String eventType, int currentYear)
+    public Event(String eventID, String username, String personID, double latitude, double longitude, String country, String city, String eventType, int year)
     {
         this.eventID = eventID;
         this.username = username;
@@ -64,7 +68,39 @@ public class Event
         this.country = country;
         this.city = city;
         this.eventType = eventType;
-        this.currentYear = currentYear;
+        this.year = year;
+    }
+
+    /**
+     * Default constructor
+     */
+    public Event()
+    {
+    }
+
+    public void setEventID(String eventID)
+    {
+        this.eventID = eventID;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
+    public void setPersonID(String personID)
+    {
+        this.personID = personID;
+    }
+
+    public void setEventType(String eventType)
+    {
+        this.eventType = eventType;
+    }
+
+    public void setYear(int year)
+    {
+        this.year = year;
     }
 
     public void setLatitude(double latitude)
@@ -80,6 +116,11 @@ public class Event
     public void setCountry(String country)
     {
         this.country = country;
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
     }
 
     public String getEventID()
@@ -122,13 +163,47 @@ public class Event
         return eventType;
     }
 
-    public int getCurrentYear()
+    public int getYear()
     {
-        return currentYear;
+        return year;
     }
 
-    public void setCity(String city)
+    @Override
+    public boolean equals(Object o)
     {
-        this.city = city;
+        if (this == o) return true;
+        if (!(o instanceof Event)) return false;
+        Event event = (Event) o;
+        return Double.compare(event.getLatitude(), getLatitude()) == 0 &&
+                Double.compare(event.getLongitude(), getLongitude()) == 0 &&
+                getYear() == event.getYear() &&
+                getEventID().equals(event.getEventID()) &&
+                getUsername().equals(event.getUsername()) &&
+                getPersonID().equals(event.getPersonID()) &&
+                getCountry().equals(event.getCountry()) &&
+                getCity().equals(event.getCity()) &&
+                getEventType().equals(event.getEventType());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getEventID(), getUsername(), getPersonID(), getLatitude(), getLongitude(), getCountry(), getCity(), getEventType(), getYear());
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Event{" +
+                "eventID='" + eventID + '\'' +
+                ", username='" + username + '\'' +
+                ", personID='" + personID + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", eventType='" + eventType + '\'' +
+                ", year=" + year +
+                '}';
     }
 }

@@ -1,5 +1,6 @@
 package Service;
 
+import Requests.LoadRequest;
 import Results.Result;
 
 /**

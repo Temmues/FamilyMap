@@ -2,7 +2,7 @@ package Service;
 
 
 import DAO.DAOPerson;
-import Model.Person;
+import Requests.RegisterRequest;
 
 import javax.xml.transform.Result;
 

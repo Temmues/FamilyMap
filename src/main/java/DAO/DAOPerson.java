@@ -2,7 +2,6 @@ package DAO;
 
 import Model.Person;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 
 /**
@@ -37,9 +36,9 @@ public class DAOPerson
             StringBuilder genderMaker = new StringBuilder();
             genderMaker.append(inputPerson.getGender());
             stmt.setString(1,inputPerson.getPersonID());
-            stmt.setString(2,inputPerson.getUsername());
-            stmt.setString(3,inputPerson.getFirstname());
-            stmt.setString(4,inputPerson.getLastname());
+            stmt.setString(2,inputPerson.getUserName());
+            stmt.setString(3,inputPerson.getFirstName());
+            stmt.setString(4,inputPerson.getLastName());
             stmt.setString(5,genderMaker.toString());
             if(inputPerson.getFatherID() == null)
             {
@@ -73,21 +72,22 @@ public class DAOPerson
         }
     }
 
+    public void setConn(Connection conn)
+    {
+        this.conn = conn;
+    }
+
     /**
      * Find and return person object based on ID
      * @param personID
      * @return
      */
-    public Person find(String personID)
+    public Person find(String personID) throws DataAccessException
     {
-        //we need to find the code to query for a certainID
-        //SELECT username, firstname, lastname, gender, fatherID, motherID, spouseID
-        //FROM person
-        //WHEN personID = 'personID'
         Person resultPerson;
         ResultSet res = null;
         String command = "SELECT username, firstname, lastname, gender, fatherID, motherID, spouseID FROM person " +
-                "WHERE personID = " + personID  + ";";
+                "WHERE personID = '" + personID  + "';";
         try(Statement stmt = conn.createStatement())
         {
             res = stmt.executeQuery(command);
@@ -104,21 +104,7 @@ public class DAOPerson
         }
         catch(SQLException e)
         {
-            System.out.printf("ERROR ", e.toString());
-        }
-        finally
-        {
-            if(res != null)
-            {
-                try
-                {
-                    conn.close();
-                }
-                catch(SQLException e)
-                {
-                    System.out.printf("ERROR ",e.toString());
-                }
-            }
+            throw new DataAccessException("Unable to find: " + e.toString());
         }
         return null;
     }
