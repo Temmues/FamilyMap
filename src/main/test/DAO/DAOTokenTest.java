@@ -50,7 +50,7 @@ class DAOTokenTest
 
            //Test Case #1 inserted object is present in program
            access.insert(authToken);
-           AuthorizationToken testToken = access.find(authToken.getPersonID());
+           AuthorizationToken testToken = access.find("personID",authToken.getPersonID());
            assertTrue(testToken.equals(authToken));
        }
        catch(DataAccessException e)
@@ -107,7 +107,7 @@ class DAOTokenTest
             access.insert(authToken);
 
             //Test Case #5 finding recently inserted token
-            AuthorizationToken testToken = access.find(authToken.getPersonID());
+            AuthorizationToken testToken = access.find("personID", authToken.getPersonID());
             assertEquals(testToken, authToken);
         }
         catch(DataAccessException e)
@@ -120,7 +120,7 @@ class DAOTokenTest
         try
         {
             //Test Case #6 attempting to find token that does not exist
-            AuthorizationToken testToken = access.find("SantaClause");
+            AuthorizationToken testToken = access.find("personID","SantaClause");
         }
         catch(DataAccessException e)
         {

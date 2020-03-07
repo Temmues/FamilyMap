@@ -29,7 +29,7 @@ public class AuthorizationToken
     public AuthorizationToken(String personID)
     {
         this.personID = personID;
-        generateToken();
+        this.authToken = generateToken(9);
     }
     public void setAuthToken(String authToken)
     {
@@ -69,18 +69,18 @@ public class AuthorizationToken
     /**
      * generates a randomized valid token for any given user
      */
-    private void generateToken()
+    public String generateToken(int size)
     {
        // how to generate a random character or number
         String alphabet = "0123456789qwertyuiopasdfghjklzxcvbnm";
         Random r = new Random();
         StringBuilder authToken = new StringBuilder();
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < size; i++)
         {
             authToken.append(alphabet.charAt(r.nextInt(alphabet.length())));
         }
-        //FIXME: ask ta sama 
-        this.authToken = authToken.toString();
+        //FIXME: ask ta sama
+        return authToken.toString();
     }
 
     //ToString and equals override

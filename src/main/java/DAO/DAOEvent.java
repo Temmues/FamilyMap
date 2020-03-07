@@ -1,7 +1,6 @@
 package DAO;
 import Model.Event;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 /**
  * Class for transfer and retrieval of events
@@ -33,7 +32,7 @@ public class DAOEvent
         try(PreparedStatement stmt = conn.prepareStatement(command))
         {
             stmt.setString(1, inputEvent.getEventID());
-            stmt.setString(2, inputEvent.getUsername());
+            stmt.setString(2, inputEvent.getAssociatedUsername());
             stmt.setString(3, inputEvent.getPersonID());
             stmt.setString(4, Double.toString(inputEvent.getLatitude()));
             stmt.setString(5, Double.toString(inputEvent.getLongitude()));
@@ -55,15 +54,14 @@ public class DAOEvent
      */
     public Event find(String eventID) throws DataAccessException
     {
-        String cmd = "SELECT eventID, username, personID, latitude, longitude, country, city, currentYear, eventType " +
-                "FROM event WHERE eventID = '" + eventID + "';";
-        ResultSet res = null;
         Event currentEvent = new Event();
         try(Statement stmt = conn.createStatement())
         {
-            res = stmt.executeQuery(cmd);
+            String cmd = "SELECT eventID, username, personID, latitude, longitude, country, city, currentYear, eventType " +
+                    "FROM event WHERE eventID = '" + eventID + "';";
+            ResultSet res = stmt.executeQuery(cmd);
             currentEvent.setEventID(res.getString("eventID"));
-            currentEvent.setUsername(res.getString("username"));
+            currentEvent.setAssociatedUsername(res.getString("username"));
             currentEvent.setPersonID(res.getString("personID"));
             currentEvent.setLatitude(Double.parseDouble(res.getString("latitude")));
             currentEvent.setLongitude(Double.parseDouble(res.getString("longitude")));
@@ -89,6 +87,36 @@ public class DAOEvent
         catch(SQLException e)
         {
             throw new DataAccessException("Error: " + e.toString());
+        }
+    }
+
+    public int findYear(String personID) throws DataAccessException
+    {
+        String cmd = "SELECT currentYear " +
+                "FROM event WHERE personID = '" + personID + "';";
+        ResultSet res = null;
+        try(Statement stmt = conn.createStatement())
+        {
+            res = stmt.executeQuery(cmd);
+            String year = res.getString("currentYear");
+            return Integer.parseInt(year);
+        }
+        catch(SQLException e)
+        {
+            return 1997;
+        }
+    }
+
+    public void removeAncestorData(String parentID) throws DataAccessException
+    {
+        String cmd = "DELETE FROM event WHERE personID = '" + parentID + "'";
+        try(Statement stmt = conn.createStatement())
+        {
+            stmt.executeUpdate(cmd);
+        }
+        catch(SQLException e)
+        {
+            throw new DataAccessException(e.toString());
         }
     }
 }

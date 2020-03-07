@@ -61,20 +61,21 @@ public class DAOToken
     }
 
     /**
-     * Retrieve Token based on userID
-     * @param personID
+     * Retrieve Token based on userID or TokenValue
+     * @param column
      * @return
      */
-    public AuthorizationToken find(String personID) throws DataAccessException
+    public AuthorizationToken find(String column, String value) throws DataAccessException
     {
         AuthorizationToken returnToken =  null;
         ResultSet res = null;
         try(Statement stmt = conn.createStatement())
         {
-            String query = "SELECT token, personID FROM authToken WHERE personID = '" + personID + "';";
+            String query = "SELECT token, personID FROM authToken WHERE " + column + " = '" + value + "';";
             res = stmt.executeQuery(query);
             returnToken = new AuthorizationToken(res.getString("personID"));
             returnToken.setAuthToken(res.getString("token"));
+            res.close();
             return returnToken;
         }
         catch(SQLException e)
@@ -82,6 +83,7 @@ public class DAOToken
             throw new DataAccessException("FIND FAILURE: " + e.toString());
         }
     }
+
 
     /**
      * confirms the validity of a particular authorization Token

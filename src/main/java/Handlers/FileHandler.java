@@ -32,7 +32,7 @@ public class FileHandler implements HttpHandler
             Path url = Paths.get(path.toString());
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             OutputStream respBody = exchange.getResponseBody();
-            Files.copy(url,respBody);
+            Files.copy(url, respBody);
             respBody.close();
             success = true;
         }

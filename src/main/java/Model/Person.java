@@ -14,7 +14,7 @@ public class Person
     /**
      * Person's username
      */
-    private String userName;
+    private String associatedUsername;
     /**
      * Person's firstname
      */
@@ -50,15 +50,15 @@ public class Person
     /**
      * Parameterized constructor
      * @param personID
-     * @param userName
+     * @param associatedUsername
      * @param firstName
      * @param lastName
      * @param gender
      */
-    public Person(String personID, String userName, String firstName, String lastName, char gender)
+    public Person(String personID, String associatedUsername, String firstName, String lastName, char gender)
     {
         this.personID = personID;
-        this.userName = userName;
+        this.associatedUsername = associatedUsername;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -72,9 +72,9 @@ public class Person
         return personID;
     }
 
-    public String getUserName()
+    public String getAssociatedUsername()
     {
-        return userName;
+        return associatedUsername;
     }
 
     public String getFirstName()
@@ -124,9 +124,9 @@ public class Person
 
     public void setPersonID(String personID){this.personID = personID;}
 
-    public void setUserName(String userName)
+    public void setAssociatedUsername(String associatedUsername)
     {
-        this.userName = userName;
+        this.associatedUsername = associatedUsername;
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Person
         Person person = (Person) o;
         return getGender() == person.getGender() &&
                 getPersonID().equals(person.getPersonID()) &&
-                getUserName().equals(person.getUserName()) &&
+                getAssociatedUsername().equals(person.getAssociatedUsername()) &&
                 getFirstName().equals(person.getFirstName()) &&
                 getLastName().equals(person.getLastName()) &&
                 Objects.equals(getFatherID(), person.getFatherID()) &&
@@ -148,7 +148,7 @@ public class Person
     @Override
     public int hashCode()
     {
-        return Objects.hash(getPersonID(), getUserName(), getFirstName(), getLastName(), getGender(), getFatherID(), getMotherID(), getSpouseID());
+        return Objects.hash(getPersonID(), getAssociatedUsername(), getFirstName(), getLastName(), getGender(), getFatherID(), getMotherID(), getSpouseID());
     }
 
     @Override
@@ -156,7 +156,7 @@ public class Person
     {
         return "Person{" +
                 "personID='" + personID + '\'' +
-                ", username='" + userName + '\'' +
+                ", username='" + associatedUsername + '\'' +
                 ", firstname='" + firstName + '\'' +
                 ", lastname='" + lastName + '\'' +
                 ", gender=" + gender +

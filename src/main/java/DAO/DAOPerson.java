@@ -36,7 +36,7 @@ public class DAOPerson
             StringBuilder genderMaker = new StringBuilder();
             genderMaker.append(inputPerson.getGender());
             stmt.setString(1,inputPerson.getPersonID());
-            stmt.setString(2,inputPerson.getUserName());
+            stmt.setString(2,inputPerson.getAssociatedUsername());
             stmt.setString(3,inputPerson.getFirstName());
             stmt.setString(4,inputPerson.getLastName());
             stmt.setString(5,genderMaker.toString());
@@ -104,7 +104,8 @@ public class DAOPerson
         }
         catch(SQLException e)
         {
-            throw new DataAccessException("Unable to find: " + e.toString());
+            return null;
+            //throw new DataAccessException("Unable to find: " + e.toString());
         }
         return null;
     }
@@ -122,6 +123,34 @@ public class DAOPerson
         catch(SQLException e)
         {
             throw new DataAccessException("ERROR");
+        }
+    }
+
+    public void updateField(String personID, String value, String field) throws DataAccessException
+    {
+        try(Statement stmt = conn.createStatement())
+        {
+            String comm = "UPDATE person " +
+                    "SET " + field + " = '" + value +
+                    "' WHERE personID = '" + personID + "';";
+            stmt.executeUpdate(comm);
+        }
+        catch(SQLException e)
+        {
+            throw new DataAccessException("Error");
+        }
+    }
+
+    public void removeAncestorData(String parentID) throws DataAccessException
+    {
+        String cmd = "DELETE FROM person WHERE personID = '" + parentID + "'";
+        try(Statement stmt = conn.createStatement())
+        {
+            stmt.executeUpdate(cmd);
+        }
+        catch(SQLException e)
+        {
+            throw new DataAccessException(e.toString());
         }
     }
 }

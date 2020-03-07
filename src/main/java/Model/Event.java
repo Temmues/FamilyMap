@@ -14,7 +14,7 @@ public class Event
     /**
      * username associated with event
      */
-    private String username;
+    private String associatedUsername;
     /**
      * PersonID associate with event
      */
@@ -49,7 +49,7 @@ public class Event
     /**
      * Parameterized constructor
      * @param eventID
-     * @param username
+     * @param associatedUsername
      * @param personID
      * @param latitude
      * @param longitude
@@ -58,10 +58,10 @@ public class Event
      * @param eventType
      * @param year
      */
-    public Event(String eventID, String username, String personID, double latitude, double longitude, String country, String city, String eventType, int year)
+    public Event(String eventID, String associatedUsername, String personID, double latitude, double longitude, String country, String city, String eventType, int year)
     {
         this.eventID = eventID;
-        this.username = username;
+        this.associatedUsername = associatedUsername;
         this.personID = personID;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -83,9 +83,9 @@ public class Event
         this.eventID = eventID;
     }
 
-    public void setUsername(String username)
+    public void setAssociatedUsername(String associatedUsername)
     {
-        this.username = username;
+        this.associatedUsername = associatedUsername;
     }
 
     public void setPersonID(String personID)
@@ -128,9 +128,9 @@ public class Event
         return eventID;
     }
 
-    public String getUsername()
+    public String getAssociatedUsername()
     {
-        return username;
+        return associatedUsername;
     }
 
     public String getPersonID()
@@ -178,7 +178,7 @@ public class Event
                 Double.compare(event.getLongitude(), getLongitude()) == 0 &&
                 getYear() == event.getYear() &&
                 getEventID().equals(event.getEventID()) &&
-                getUsername().equals(event.getUsername()) &&
+                getAssociatedUsername().equals(event.getAssociatedUsername()) &&
                 getPersonID().equals(event.getPersonID()) &&
                 getCountry().equals(event.getCountry()) &&
                 getCity().equals(event.getCity()) &&
@@ -188,7 +188,7 @@ public class Event
     @Override
     public int hashCode()
     {
-        return Objects.hash(getEventID(), getUsername(), getPersonID(), getLatitude(), getLongitude(), getCountry(), getCity(), getEventType(), getYear());
+        return Objects.hash(getEventID(), getAssociatedUsername(), getPersonID(), getLatitude(), getLongitude(), getCountry(), getCity(), getEventType(), getYear());
     }
 
     @Override
@@ -196,7 +196,7 @@ public class Event
     {
         return "Event{" +
                 "eventID='" + eventID + '\'' +
-                ", username='" + username + '\'' +
+                ", username='" + associatedUsername + '\'' +
                 ", personID='" + personID + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +

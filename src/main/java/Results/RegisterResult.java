@@ -17,10 +17,6 @@ public class RegisterResult extends Result
      * Resulting person ID
      */
     private String personID;
-    /**
-     * Successfully executed flag
-     */
-    private boolean success;
 
     /**
      * @param authToken auth token
@@ -30,10 +26,15 @@ public class RegisterResult extends Result
      */
     public RegisterResult(String authToken, String userName, String personID, boolean success, String errorMessage)
     {
-        super(errorMessage,success);
+        super(errorMessage, success);
         this.authToken = authToken;
         this.userName = userName;
         this.personID = personID;
+    }
+
+    public RegisterResult(boolean success, String errorMessage)
+    {
+        super(errorMessage, success);
     }
 
     public String getAuthToken()

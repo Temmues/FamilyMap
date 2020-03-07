@@ -37,19 +37,7 @@ class LoginServiceTest
     @AfterEach
     void tearDown()
     {
-//        try
-//        {
-//            Connection conn = data.getConnect();
-//            DAOUser accessUser = new DAOUser(conn);
-//            DAOToken accessToken = new DAOToken(conn);
-//            accessUser.clear();
-//            accessToken.clear();
-//            data.close(true);
-//        }
-//        catch(DataAccessException e)
-//        {
-//            System.out.println("ERROR CLOSING!" + e.toString());
-//        }
+
     }
     @Test
     void login()
@@ -72,7 +60,7 @@ class LoginServiceTest
             conn = data.getConnect();
             accessUser.setConn(conn);
             accessToken.setConn(conn);
-            AuthorizationToken generatedToken = accessToken.find(testUser.getPersonID());
+            AuthorizationToken generatedToken = accessToken.find("personID", testUser.getPersonID());
 
             //Test Case #2 ensure that generated Token associated with username has a value
             assertTrue(generatedToken.getAuthToken() != null);

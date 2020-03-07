@@ -43,7 +43,7 @@ class DAOEventTest
             access.insert(test);
             test.setEventID("lalalala");
             test.setPersonID("different");
-            test.setUsername("Monkey");
+            test.setAssociatedUsername("Monkey");
             access.insert(test);
         }
         catch(DataAccessException e)
