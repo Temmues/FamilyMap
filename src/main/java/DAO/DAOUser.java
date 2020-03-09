@@ -61,7 +61,7 @@ public class DAOUser
      */
     public User find(String username) throws DataAccessException
     {
-        ResultSet res;
+        ResultSet res = null;
         User foundUser = new User();
         String command = "SELECT password, email, firstname, lastname, gender, personID FROM user " +
                 "WHERE username = '" + username + "';";

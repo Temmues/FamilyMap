@@ -36,7 +36,14 @@ public class LoginHandler implements HttpHandler
                 LoginService access = new LoginService();
                 Result result = access.login(request);
 
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                if(result.isSuccess())
+                {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                }
+                else
+                {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                }
                 OutputStream out = exchange.getResponseBody();
                 String returnValue = g.toJson(result);
                 convert.writeString(returnValue, out);

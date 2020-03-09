@@ -8,13 +8,13 @@ import Model.Event;
 public class EventResult extends Result
 {
     /**
-     * ID associated with event
-     */
-    private String eventID;
-    /**
      * username associated with event
      */
     private String associatedUsername;
+    /**
+     * ID associated with event
+     */
+    private String eventID;
     /**
      * PersonID associate with event
      */

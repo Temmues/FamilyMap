@@ -75,7 +75,7 @@ class DAOPersonTest
             Connection conn = data.openConnect();
             DAOPerson access = new DAOPerson(conn);
             access.insert(testPerson);
-            Person testGuy = access.find("173820");
+            Person testGuy = access.find("personID","173820");
 
             //TEST CASE #3 Ensuring that inserted object can be found
             assertEquals(testGuy,testPerson);
@@ -86,7 +86,7 @@ class DAOPersonTest
             //TEST CASE #4 attempting to find a person with an ID that does not exist
             testPerson.setPersonID("174820");
             access.insert(testPerson);
-            testGuy = access.find("173820");
+            testGuy = access.find("personID", "173820");
             assertNotEquals(testGuy,testPerson);
         }
         catch(DataAccessException e)

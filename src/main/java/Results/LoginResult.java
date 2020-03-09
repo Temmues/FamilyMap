@@ -3,9 +3,8 @@ package Results;
 /**
  * Result to be returned by LoginService "Login" Method
  */
-public class LoginResult extends Result
+public class LoginResult extends Results.Result
 {
-
     /**
      * Login token
      */

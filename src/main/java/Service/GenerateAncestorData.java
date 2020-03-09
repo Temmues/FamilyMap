@@ -32,7 +32,7 @@ public class GenerateAncestorData
         genCount = 0;
     }
 
-    public void generateParents(Person currentGuy, ArrayList<Person> generation)
+    public void generateParents(Person currentGuy, ArrayList<Person> generation, DataBase data)
     {
         assert currentGuy != null;
         ArrayList<Person> couple = new ArrayList<Person>();
@@ -65,13 +65,12 @@ public class GenerateAncestorData
         int year = 0;
         try
         {
-            DataBase data = new DataBase();
             Connection conn = data.getConnect();
             accessEvent = new DAOEvent(conn);
             accessPerson = new DAOPerson(conn);
             accessPerson.updateField(currentGuy.getPersonID(), momID, "motherID");
             accessPerson.updateField(currentGuy.getPersonID(), dadID, "fatherID");
-            year = accessEvent.findYear(currentGuy.getPersonID());;
+            year = accessEvent.findYear(currentGuy.getPersonID());
             String momUsername = momName.toLowerCase();
             String dadUsername = dadName.toLowerCase();
             accessPerson.insert(mom);
@@ -109,8 +108,6 @@ public class GenerateAncestorData
             accessEvent.insert(momDeath);
             accessEvent.insert(momBirth);
             accessEvent.insert(dadBirth);
-
-            data.close(true);
         }
         catch(DataAccessException e)
         {
@@ -177,7 +174,7 @@ public class GenerateAncestorData
         return ran.nextInt((max - min) + 1) + min;
     }
 
-    private Event generateBirth(String userName, String personID, int childBirthday, char gender, Place place)
+    public Event generateBirth(String userName, String personID, int childBirthday, char gender, Place place)
     {
         Event birth = new Event();
         Random ran = new Random();

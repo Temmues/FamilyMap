@@ -31,6 +31,7 @@ public class LoadHandler implements HttpHandler
                 ClearService clearService = new ClearService();
                 InputStream input = exchange.getRequestBody();
                 String inputJson = convert.readString(input);
+                System.out.println(inputJson);
                 Gson g = new Gson();
                 LoadRequest request = g.fromJson(inputJson, LoadRequest.class);
 

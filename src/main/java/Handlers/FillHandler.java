@@ -52,16 +52,13 @@ public class FillHandler implements HttpHandler
                     }
                 }
 
-                fillService.fill(username, genNum);
-                String result = "Successfully added " + fillService.getAddNumPerson()
-                + " persons and " + fillService.getAddNumEvent() + " events to the database.”";
-                Result goodResult = new Result(result, true);
+               Result result = fillService.fill(username, genNum);
 
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
                 OutputStream out = exchange.getResponseBody();
                 Gson g = new Gson();
                 JSON convert = new JSON();
-                String returnValue = g.toJson(goodResult);
+                String returnValue = g.toJson(result);
                 convert.writeString(returnValue, out);
                 out.close();
                 success = true;
@@ -72,7 +69,7 @@ public class FillHandler implements HttpHandler
                 exchange.getResponseBody().close();
             }
         }
-        catch(IOException | DataAccessException e)
+        catch(IOException e)
         {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
             Result badResult = new Result(e.toString(), false);
@@ -82,7 +79,6 @@ public class FillHandler implements HttpHandler
             String returnValue = g.toJson(badResult);
             convert.writeString(returnValue, out);
             exchange.getResponseBody().close();
-            //e.printStackTrace();
         }
     }
 }

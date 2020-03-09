@@ -67,16 +67,22 @@ public class DAOToken
      */
     public AuthorizationToken find(String column, String value) throws DataAccessException
     {
-        AuthorizationToken returnToken =  null;
+        AuthorizationToken returnToken =  new AuthorizationToken();
         ResultSet res = null;
-        try(Statement stmt = conn.createStatement())
+        String query = "SELECT * FROM authToken WHERE " + column + " = '" + value + "';";
+        try(PreparedStatement stmt = conn.prepareStatement(query))
         {
-            String query = "SELECT token, personID FROM authToken WHERE " + column + " = '" + value + "';";
-            res = stmt.executeQuery(query);
-            returnToken = new AuthorizationToken(res.getString("personID"));
-            returnToken.setAuthToken(res.getString("token"));
-            res.close();
-            return returnToken;
+            res = stmt.executeQuery();
+            if(res.next())
+            {
+                returnToken.setAuthToken(res.getString("token"));
+                returnToken.setPersonID(res.getString("personID"));
+                return returnToken;
+            }
+            else
+            {
+                throw new SQLException("Was not found!");
+            }
         }
         catch(SQLException e)
         {

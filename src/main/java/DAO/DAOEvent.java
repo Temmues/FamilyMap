@@ -1,7 +1,10 @@
 package DAO;
 import Model.Event;
+import Model.Person;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 /**
  * Class for transfer and retrieval of events
  */
@@ -93,7 +96,7 @@ public class DAOEvent
     public int findYear(String personID) throws DataAccessException
     {
         String cmd = "SELECT currentYear " +
-                "FROM event WHERE personID = '" + personID + "';";
+                "FROM event WHERE personID = '" + personID + "' AND eventType = 'birth';";
         ResultSet res = null;
         try(Statement stmt = conn.createStatement())
         {
@@ -107,9 +110,9 @@ public class DAOEvent
         }
     }
 
-    public void removeAncestorData(String parentID) throws DataAccessException
+    public void removeAncestorData(String username) throws DataAccessException
     {
-        String cmd = "DELETE FROM event WHERE personID = '" + parentID + "'";
+        String cmd = "DELETE FROM event WHERE username = '" + username + "'";
         try(Statement stmt = conn.createStatement())
         {
             stmt.executeUpdate(cmd);
@@ -118,5 +121,25 @@ public class DAOEvent
         {
             throw new DataAccessException(e.toString());
         }
+    }
+    public ArrayList<String> getEvents(Person person) throws Exception
+    {
+        ArrayList<String> events = new ArrayList<String>();
+        String cmd = "SELECT eventID " +
+                "FROM event WHERE personID = '" + person.getPersonID() + "';";
+        ResultSet res = null;
+        try(Statement stmt = conn.createStatement())
+        {
+            res = stmt.executeQuery(cmd);
+            while(res.next())
+            {
+                events.add(res.getString("eventID"));
+            }
+        }
+        catch(SQLException e)
+        {
+            throw new Exception("query error");
+        }
+        return events;
     }
 }

@@ -79,35 +79,38 @@ public class DAOPerson
 
     /**
      * Find and return person object based on ID
-     * @param personID
+     * @param column
+     * @param value
      * @return
      */
-    public Person find(String personID) throws DataAccessException
+    public Person find(String column, String value) throws DataAccessException
     {
         Person resultPerson;
         ResultSet res = null;
-        String command = "SELECT username, firstname, lastname, gender, fatherID, motherID, spouseID FROM person " +
-                "WHERE personID = '" + personID  + "';";
+        String command = "SELECT personID, username, firstname, lastname, gender, fatherID, motherID, spouseID FROM person " +
+                "WHERE " + column + " = '" + value  + "';";
         try(Statement stmt = conn.createStatement())
         {
             res = stmt.executeQuery(command);
             if(res.next())
             {
                 StringBuilder gender = new StringBuilder(res.getString("gender"));
-                resultPerson = new Person(personID, res.getString("username"), res.getString("firstname"),
+                resultPerson = new Person(res.getString("personID"), res.getString("username"), res.getString("firstname"),
                         res.getString("lastname"), gender.charAt(0));
                 resultPerson.setFatherID(res.getString("fatherID"));
                 resultPerson.setMotherID(res.getString("motherID"));
                 resultPerson.setSpouseID(res.getString("spouseID"));
                 return resultPerson;
             }
+            else
+            {
+                throw new DataAccessException("Unable to find: person");
+            }
         }
         catch(SQLException e)
         {
-            return null;
-            //throw new DataAccessException("Unable to find: " + e.toString());
+            throw new DataAccessException("Unable to find: " + e.toString());
         }
-        return null;
     }
 
     /**
@@ -141,9 +144,9 @@ public class DAOPerson
         }
     }
 
-    public void removeAncestorData(String parentID) throws DataAccessException
+    public void removeAncestorData(String username) throws DataAccessException
     {
-        String cmd = "DELETE FROM person WHERE personID = '" + parentID + "'";
+        String cmd = "DELETE FROM person WHERE username = '" + username + "'";
         try(Statement stmt = conn.createStatement())
         {
             stmt.executeUpdate(cmd);

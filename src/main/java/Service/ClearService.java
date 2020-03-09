@@ -17,10 +17,10 @@ public class ClearService
      */
     public Result clear() throws DataAccessException
     {
+        DataBase data = new DataBase();
         try
         {
-            DataBase data = new DataBase();
-            Connection conn = data.getConnect();
+            Connection conn = data.openConnect();
             DAOUser user = new DAOUser(conn);
             DAOToken token = new DAOToken(conn);
             DAOPerson person = new DAOPerson(conn);

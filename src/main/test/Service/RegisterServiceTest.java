@@ -11,7 +11,7 @@ class RegisterServiceTest
 {
 
     @Test
-    void register() throws DataAccessException
+    void register() throws Exception
     {
         ClearService clearService = new ClearService();
         clearService.clear();

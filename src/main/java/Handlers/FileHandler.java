@@ -18,21 +18,26 @@ public class FileHandler implements HttpHandler
         boolean success = true;
         if (exchange.getRequestMethod().toLowerCase().equals("get"))
         {
+
             StringBuilder path = new StringBuilder();
             path.append(exchange.getRequestURI().getPath());
             if(path.toString().equals("/"))
             {
-                path.deleteCharAt(0);
-                path.append("C:/Users/tombo/FamilyMap/web/index.html");
+                path = new StringBuilder("C:/Users/tombo/FamilyMap/web/index.html");
             }
             else
             {
-                success = false;
+                StringBuilder base = new StringBuilder("C:/Users/tombo/FamilyMap/web");
+                base.append(path.toString());
+                path = base;
             }
+
+
             Path url = Paths.get(path.toString());
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+
             OutputStream respBody = exchange.getResponseBody();
             Files.copy(url, respBody);
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             respBody.close();
             success = true;
         }

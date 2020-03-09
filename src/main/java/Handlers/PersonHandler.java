@@ -34,9 +34,7 @@ class PersonHandler implements HttpHandler
             if (exchange.getRequestMethod().toLowerCase().equals("get"))
             {
 
-                // Get the HTTP request headers
                 Headers reqHeaders = exchange.getRequestHeaders();
-                // Check to see if an "Authorization" header is present
                 if (reqHeaders.containsKey("Authorization"))
                 {
 
@@ -50,26 +48,37 @@ class PersonHandler implements HttpHandler
                     PersonService service = null;
                     String personID = null;
                     String json = null;
+                    Result result = null;
                     if (getUsername.next().equals("person"))
                     {
+
                         if(getUsername.hasNext())
                         {
                             personID = getUsername.next();
                             service = new PersonService(personID);
-                            Result result = service.searchPerson(authToken);
+                            result = service.searchPerson(authToken);
                             Gson g = new Gson();
                             json = g.toJson(result);
                         }
                         else
                         {
                             service = new PersonService(personID);
-                            Result result = service.returnMembers(authToken);
+                            result = service.returnMembers(authToken);
                             Gson g = new Gson();
                             json = g.toJson(result);
                         }
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+
+                        if(result.isSuccess())
+                        {
+                            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                        }
+                        else
+                        {
+                            exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                        }
                         OutputStream respBody = exchange.getResponseBody();
                         writeString(json, respBody);
+
                         respBody.close();
                         success = true;
                     }
@@ -77,26 +86,13 @@ class PersonHandler implements HttpHandler
             }
 
             if (!success) {
-                // The HTTP request was invalid somehow, so we return a "bad request"
-                // status code to the client.
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-                // Since the client request was invalid, they will not receive the
-                // list of games, so we close the response body output stream,
-                // indicating that the response is complete.
                 exchange.getResponseBody().close();
             }
         }
         catch (IOException e) {
-            // Some kind of internal error has occurred inside the server (not the
-            // client's fault), so we return an "internal server error" status code
-            // to the client.
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-            // Since the server is unable to complete the request, the client will
-            // not receive the list of games, so we close the response body output stream,
-            // indicating that the response is complete.
             exchange.getResponseBody().close();
-
-            // Display/log the stack trace
             e.printStackTrace();
         }
     }

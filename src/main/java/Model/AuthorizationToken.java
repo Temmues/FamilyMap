@@ -79,7 +79,6 @@ public class AuthorizationToken
         {
             authToken.append(alphabet.charAt(r.nextInt(alphabet.length())));
         }
-        //FIXME: ask ta sama
         return authToken.toString();
     }
 

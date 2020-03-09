@@ -31,9 +31,15 @@ public class RegisterHandler implements HttpHandler
                 RegisterRequest request = g.fromJson(json, RegisterRequest.class);
                 Result result = service.register(request);
 
-                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                if(result.isSuccess())
+                {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                }
+                else
+                {
+                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+                }
                 OutputStream out = exchange.getResponseBody();
-                System.out.println(result.toString());
                 String returnValue = g.toJson(result);
                 convert.writeString(returnValue, out);
                 out.close();

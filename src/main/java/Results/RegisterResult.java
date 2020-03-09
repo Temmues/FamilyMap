@@ -3,7 +3,7 @@ package Results;
 /**
  * Result to be returned by RegisterService "register" Method
  */
-public class RegisterResult extends Result
+public class RegisterResult extends Results.Result
 {
     /**
      * authentication token
